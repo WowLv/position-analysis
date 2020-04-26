@@ -141,7 +141,7 @@ export default {
         ]
       }
       this.companySizepDom.setOption(option)
-      // this.$store.dispatch('setChartDOM', [chart])
+      this.$store.dispatch('setChartDOM', [this.companySizepDom])
     }
   }
 }

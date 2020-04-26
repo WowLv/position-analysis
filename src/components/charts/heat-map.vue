@@ -172,6 +172,7 @@ export default {
         }
       }
       this.heatMapDom.setOption(option)
+      this.$store.dispatch('setChartDOM', [this.heatMapDom])
     }
   }
 }

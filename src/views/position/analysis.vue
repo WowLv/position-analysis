@@ -15,11 +15,11 @@
 
 <script>
 import position from './position'
-import heatMap from './charts/heat-map'
-import columnBar from './charts/column-bar'
-import columnBarSub from './charts/column-bar-sub'
-import wordCloud from './charts/word-cloud'
-import pie from './charts/pie'
+import heatMap from '@/components/charts/heat-map'
+import columnBar from '@/components/charts/column-bar'
+import columnBarSub from '@/components/charts/column-bar-sub'
+import wordCloud from '@/components/charts/word-cloud'
+import pie from '@/components/charts/pie'
 import {
   getPosition,
   getPositionHeatmap,

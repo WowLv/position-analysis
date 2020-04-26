@@ -161,6 +161,7 @@ export default {
         ]
       }
       this.financeStageDom.setOption(option)
+      this.$store.dispatch('setChartDOM', [this.financeStageDom])
     }
   }
 }
