@@ -1,6 +1,6 @@
 <template>
   <div class="company-size-container">
-    <columnBar :company-size-data="companySizeData"></columnBar>
+    <columnBar :column-data="companySizeData" title="企业规模"></columnBar>
   </div>
 </template>
 

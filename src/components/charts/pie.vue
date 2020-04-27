@@ -8,7 +8,7 @@
 <script>
 export default {
   props: {
-    financeStageData: {
+    pieData: {
       type: Array,
       default: function() {
         return []
@@ -23,9 +23,9 @@ export default {
     }
   },
   watch: {
-    financeStageData: {
+    pieData: {
       handler() {
-        this.data = this.financeStageData
+        this.data = this.pieData
         this.initPie()
       }
     }

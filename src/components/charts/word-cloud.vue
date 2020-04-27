@@ -9,7 +9,7 @@ require('echarts-wordcloud')
 
 export default {
   props: {
-    benefitData: {
+    wordCloudData: {
       type: Array,
       default: function() {
         return []
@@ -24,9 +24,9 @@ export default {
     }
   },
   watch: {
-    benefitData: {
+    wordCloudData: {
       handler() {
-        this.data = this.benefitData
+        this.data = this.wordCloudData
         this.initBenefit()
       }
     }

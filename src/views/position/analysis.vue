@@ -3,12 +3,12 @@
     <position class="position" :position-data="positionData" />
     <heat-map class="heat-map" :heat-map-data="heatMapData" />
     <div class="second-container">
-      <columnBar class="company-size" :company-size-data="companySizeData" />
-      <columnBarSub class="education" :education-data="educationData" />
+      <columnBar class="company-size" :column-data="companySizeData" title="企业规模" />
+      <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" />
     </div>
     <div class="third-container">
-      <wordCloud class="word-cloud" :benefit-data="benefitData" />
-      <pie class="finance-stage" :finance-stage-data="financeStage" />
+      <wordCloud class="word-cloud" :word-cloud-data="benefitData" />
+      <pie class="finance-stage" :pie-data="financeStage" />
     </div>
   </div>
 </template>

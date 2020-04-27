@@ -1,18 +1,22 @@
 <template>
   <div class="company-size-container">
     <div ref="companySize" v-loading="loading" class="chart" />
-    <p class="title">学历要求</p>
+    <p class="title">{{ title }}</p>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    educationData: {
+    columnBarData: {
       type: Array,
       default: function() {
         return []
       }
+    },
+    title: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -23,9 +27,9 @@ export default {
     }
   },
   watch: {
-    educationData: {
+    columnBarData: {
       handler() {
-        this.data = this.educationData
+        this.data = this.columnBarData
         this.initCompanySize()
       }
     }

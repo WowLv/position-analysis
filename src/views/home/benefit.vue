@@ -1,45 +1,45 @@
 <template>
-  <div class="heat-map-container">
-    <heat-map class="heat-map" :heat-map-data="heatMapData" />
+  <div class="benefit-container">
+    <word-cloud class="benefit" :word-cloud-data="benefitData" />
 </div>
 </template>
 
 <script>
-import { getPositionHeatmap } from '@/api/position'
-import heatMap from '@/components/charts/heat-map'
+import { getAllBenefit } from '@/api/benefit'
+import wordCloud from '@/components/charts/word-cloud'
 
 export default {
   components: {
-    heatMap
+    wordCloud
   },
   data() {
     return {
-      heatMapData: []
+      benefitData: []
     }
   },
 
   mounted() {
     // this.initBenefit()
-    this.getHeatmapData()
+    this.getBenefit()
   },
   methods: {
-    async getHeatmapData() {
-      const { data } = await getPositionHeatmap()
-      this.heatMapData = data
+    async getBenefit() {
+      const { data } = await getAllBenefit()
+      this.benefitData = data
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.heat-map-container {
+.benefit-container {
   width: 100%;
   height: 100%;
   // position: relative;
-  .heat-map {
-      height: 400px;
-      background: #fff;
-    }
+  // .heat-map {
+  //     height: 400px;
+  //     background: #fff;
+  //   }
 }
 
 </style>
