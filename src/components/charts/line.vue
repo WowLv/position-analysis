@@ -1,7 +1,7 @@
 <template>
   <div class="line-chart-container">
-    <p class="title">全国招聘职位趋势图</p>
     <div ref="update" class="chart"></div>
+    <p class="title">{{ title }}</p>
   </div>
 </template>
 
@@ -14,6 +14,10 @@ export default {
       default: function() {
         return []
       }
+    },
+    title: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -282,7 +286,7 @@ export default {
     height: 100%;
   }
   .title {
-    @include title-line($pos-top: 13px, $pos-left: 33px);
+    @include title-line($pos-top: 0px, $pos-left: 30px);
   }
 }
 </style>

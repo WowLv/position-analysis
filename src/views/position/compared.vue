@@ -2,19 +2,19 @@
   <div class="compared">
     <div class="analysis">
       <positionCopy class="position" :position-data="positionData" />
-      <heat-map class="heat-map" :heat-map-data="heatMapData" />
+      <heat-map class="heat-map" :heat-map-data="heatMapData" title="预测薪资" />
       <columnBar class="company-size" :column-data="companySizeData" title="企业规模" />
       <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" />
-      <wordCloud class="word-cloud" :word-cloud-data="benefitData" />
-      <pie class="finance-stage" :pie-data="financeStage" />
+      <wordCloud class="word-cloud" :word-cloud-data="benefitData" title="薪资福利" />
+      <pie class="finance-stage" :pie-data="financeStage" title="企业融资" />
     </div>
     <div class="analysis">
       <positionCopy class="position" :position-data="positionData" />
-      <heat-map class="heat-map" :heat-map-data="heatMapData" />
+      <heat-map class="heat-map" :heat-map-data="heatMapData" title="预测薪资" />
       <columnBar class="company-size" :column-data="companySizeData" title="企业规模" />
       <columnBarSub class="education" :column-bar-data="educationData" title="学历要求" />
-      <wordCloud class="word-cloud" :word-cloud-data="benefitData" />
-      <pie class="finance-stage" :pie-data="financeStage" />
+      <wordCloud class="word-cloud" :word-cloud-data="benefitData" title="薪资福利" />
+      <pie class="finance-stage" :pie-data="financeStage" title="企业融资" />
     </div>
     <!-- <div class="analysis">
       <position class="position" :position-data="positionData" />

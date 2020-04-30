@@ -1,6 +1,6 @@
 <template>
   <div class="date-trend-container">
-    <line-chart :line-data="lineData" />
+    <line-chart :line-data="lineData" title="招聘数据趋势" />
   </div>
 </template>
 

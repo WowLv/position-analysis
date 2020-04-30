@@ -1,7 +1,7 @@
 <template>
   <div class="heatmap-container">
     <div ref="heatmap" v-loading="loading" class="heatmap"></div>
-    <p class="title">经验 => 薪资</p>
+    <p class="title">{{ title }}</p>
   </div>
 </template>
 
@@ -13,6 +13,10 @@ export default {
       default: function() {
         return []
       }
+    },
+    title: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -187,7 +191,7 @@ export default {
     height: 100%;
   }
   .title {
-    @include title-line($pos-top: 10px, $pos-left: 30px);
+    @include title-line($pos-top: 0px, $pos-left: 30px);
   }
 }
 </style>

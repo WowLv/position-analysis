@@ -1,6 +1,6 @@
 <template>
   <div class="map-container">
-    <Map :map-data="mapData" />
+    <Map :map-data="mapData" title="全国省份信息" />
   </div>
 </template>
 

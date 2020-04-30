@@ -2,36 +2,45 @@
   <div class="date-rank-container">
     <el-collapse v-model="activeNames" class="date-table">
       <el-collapse-item name="1">
-         <template slot="title"><span class="title"><i class="el-icon-medal"></i>日期排行榜</span></template>
+        <template slot="title"><span class="title"><i class="el-icon-medal"></i>日期排行榜</span></template>
         <div class="date-rank-main">
            <el-table
             :data="updateData"
-            style="width: 100%">
+            style="width: 100%; font-size: 20px "
+            height="360"
+            :row-class-name="tableRowClassName">
             <el-table-column
-              prop="name"
+              type="index"
+              width="50">
+            </el-table-column>
+            <el-table-column
               label="日期"
-              width="280">
+              width="300">
+              <template slot-scope="scope">
+                <i class="el-icon-time"></i>
+                <span style="margin-left: 10px">{{ scope.row.name }}</span>
+              </template>
             </el-table-column>
             <el-table-column
               prop="value"
               label="数量"
-              width="280">
+              width="300">
             </el-table-column>
           </el-table>
         </div>
       </el-collapse-item>
     </el-collapse>
-    <column-bar-sub class="top" :column-bar-data="updateData" title="日期排行榜"></column-bar-sub>
+    <verticalColumn class="top" :column-data="updateData" title="日期排行榜"></verticalColumn>
   </div>
 </template>
 
 <script>
 import { getAllUpdate } from '@/api/map'
 import { TopFiveDate } from '@/utils/sortData'
-import columnBarSub from '@/components/charts/column-bar-sub'
+import verticalColumn from '@/components/charts/vertical-column'
 export default {
   components: {
-    columnBarSub
+    verticalColumn
   },
   data() {
     return {
@@ -44,6 +53,12 @@ export default {
     this.getTop()
   },
   methods: {
+    tableRowClassName({ row, rowIndex }) {
+      if (rowIndex === 0) {
+        return 'first-row'
+      }
+      return ''
+    },
     async getTop() {
       const { data } = await getAllUpdate()
       this.updateData = TopFiveDate(data)
@@ -52,25 +67,29 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .date-rank-container {
   width: 100%;
   height: 100%;
   display: flex;
   .date-table {
-    flex: 1;
+    flex: 4;
     .title {
       font-size: 24px;
       margin-left: 20px;
     }
     .date-rank-main {
       margin: 0 20px;
+      .el-table .first-row {
+        background: oldlace ;
+      }
     }
   }
   .top {
-    flex: 1;
-    height: 385px;
+    flex: 6;
+    height: 400px;
     width: 100%;
+    margin-top: 20px;
   }
 }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="company-size-container">
     <div ref="financeStage" v-loading="loading" class="chart" />
-    <!-- <p class="title">学历要求</p> -->
+    <p class="title">{{ title }}</p>
   </div>
 </template>
 
@@ -13,6 +13,10 @@ export default {
       default: function() {
         return []
       }
+    },
+    title: {
+      type: String,
+      default: ''
     }
   },
   data() {

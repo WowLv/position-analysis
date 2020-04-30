@@ -1,6 +1,7 @@
 <template>
     <div class="map-container">
         <div ref="map" v-loading="loading" class="map-main" />
+        <p class="title">{{ title }}</p>
     </div>
 </template>
 
@@ -13,6 +14,10 @@ export default {
       default: function() {
         return []
       }
+    },
+    title: {
+      type: String,
+      default: ''
     }
   },
   data() {
@@ -128,6 +133,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/styles/index.scss';
 .map-container {
   width: 100%;
   height: 100%;
@@ -135,6 +141,9 @@ export default {
   .map-main {
     width: 100%;
     height: 100%;
+  }
+  .title {
+    @include title-line($pos-top: 0px, $pos-left: 30px);
   }
 }
 </style>

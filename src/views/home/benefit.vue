@@ -1,6 +1,6 @@
 <template>
   <div class="benefit-container">
-    <word-cloud class="benefit" :word-cloud-data="benefitData" />
+    <word-cloud class="benefit" :word-cloud-data="benefitData" title="薪资福利" />
 </div>
 </template>
 

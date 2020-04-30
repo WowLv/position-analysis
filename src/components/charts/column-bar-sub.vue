@@ -16,7 +16,7 @@ export default {
     },
     title: {
       type: String,
-      default: ''
+      default: null
     }
   },
   data() {
@@ -197,7 +197,7 @@ export default {
     height: 100%;
   }
   .title {
-    @include title-line($pos-top: 10px, $pos-left: 30px);
+    @include title-line($pos-top: 0px, $pos-left: 30px);
   }
 }
 </style>
