@@ -28,7 +28,7 @@ export default {
       this.showingName.map(ele => {
         ele.chartDom.resize()
       })
-      this.$store.dispatch('deleteChangePage')
+      this.$store.dispatch('deleteChangePage', 'rank')
     }
   }
 }

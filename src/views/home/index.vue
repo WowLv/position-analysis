@@ -75,7 +75,7 @@ export default {
         ele.chartDom.resize()
         // console.log(ele.chartDom)
       })
-      this.$store.dispatch('deleteChangePage')
+      this.$store.dispatch('deleteChangePage', 'home')
     }
   },
   mounted() {
