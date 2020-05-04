@@ -7,16 +7,14 @@
            <el-table
             :data="locationData"
             style="width: 100%; font-size: 20px "
-            height="325"
             :row-class-name="tableRowClassName">
             <el-table-column
               type="index"
-              width="100"
-              align="center">
+              width="50"
+              align="right">
             </el-table-column>
             <el-table-column
               label="省份"
-              width="250"
               align="center">
               <template slot-scope="scope">
                 <i class="el-icon-location-information"></i>
@@ -26,14 +24,13 @@
             <el-table-column
               prop="value"
               label="数量"
-              width="300"
               align="center">
             </el-table-column>
           </el-table>
         </div>
       </el-collapse-item>
     </el-collapse>
-    <verticalColumn class="top" :column-data="locationData" title="地区排行榜"></verticalColumn>
+    <verticalColumn class="top" :column-data="locationData" title="地区排行榜" @fromSonComp="getFromSon"></verticalColumn>
   </div>
 </template>
 
@@ -55,6 +52,12 @@ export default {
     this.getTop()
   },
   methods: {
+    getFromSon(chartDom) {
+      this.$store.dispatch('setChartDOM', [{
+        name: 'rank-location',
+        chartDom: chartDom
+      }])
+    },
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex === 0) {
         return 'first-row'
@@ -91,7 +94,7 @@ export default {
     flex: 6;
     height: 400px;
     width: 100%;
-    margin-top: 20px;
+    // margin-top: 20px;
   }
 }
 
