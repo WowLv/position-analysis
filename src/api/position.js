@@ -1,14 +1,104 @@
 import request from './request'
 
-/**
- * 暂时性使用固定参数，后续看要求可改成 ...args
- */
+// export function getPositionHeatmap({
+//   region = '广东省',
+//   level = 2,
+//   position = '后端开发'
+// }) {
+//   return request({
+//     url: '/Exp_Scalary_Servlet',
+//     method: 'get',
+//     params: {
+//       region,
+//       level,
+//       position
+//     }
+//   })
+// }
 
-export function getPositionHeatmap(
-  region = '前端开发',
-  position = '广东省',
-  level = 1
-) {
+// export function getCompanySize({
+//   region = '广东省',
+//   level = 2,
+//   position = '后端开发'
+// }) {
+//   return request({
+//     url: '/CompanySize_Servlet',
+//     method: 'get',
+//     params: {
+//       region,
+//       level,
+//       position
+//     }
+//   })
+// }
+
+// export function getEducation({
+//   region = '广东省',
+//   level = 2,
+//   position = '后端开发'
+// }) {
+//   return request({
+//     url: '/EduInfo_Servlet',
+//     method: 'get',
+//     params: {
+//       region,
+//       level,
+//       position
+//     }
+//   })
+// }
+
+// export function getBenefit({
+//   region = '广东省',
+//   level = 2,
+//   position = '后端开发'
+// }) {
+//   return request({
+//     url: '/CompanyWelfare_Servlet',
+//     method: 'get',
+//     params: {
+//       region,
+//       level,
+//       position
+//     }
+//   })
+// }
+
+// export function getFinanceStage({
+//   region = '广东省',
+//   level = 2,
+//   position = '后端开发'
+// }) {
+//   return request({
+//     url: '/CompanyFinance_Servlet',
+//     method: 'get',
+//     params: {
+//       region,
+//       level,
+//       position
+//     }
+//   })
+// }
+
+// export function getPosition({
+//   region = '广东省',
+//   level = 2,
+//   position = '后端开发'
+// }) {
+//   return request({
+//     url: '/CountryJob_DayTop_Servlet',
+//     method: 'get',
+//     params: {
+//       region,
+//       level,
+//       position
+//     }
+//   })
+// }
+
+// ***************************************** Mock Begin *****************************************
+
+export function getPositionHeatmap(region = '后端开发', position = '广东省', level) {
   return request({
     url: '/mirai-position/heat-map.json',
     method: 'get',
@@ -20,11 +110,7 @@ export function getPositionHeatmap(
   })
 }
 
-export function getCompanySize(
-  region = '前端开发',
-  position = '广东省',
-  level = 1
-) {
+export function getCompanySize(region = '后端开发', position = '广东省', level) {
   return request({
     url: '/mirai-position/company-size.json',
     method: 'get',
@@ -36,7 +122,7 @@ export function getCompanySize(
   })
 }
 
-export function getEducation(region = '前端开发', position = '广东省', level) {
+export function getEducation(region = '后端开发', position = '广东省', level) {
   return request({
     url: '/mirai-position/education.json',
     method: 'get',
@@ -48,7 +134,7 @@ export function getEducation(region = '前端开发', position = '广东省', le
   })
 }
 
-export function getBenefit(region = '前端开发', position = '广东省', level) {
+export function getBenefit(region = '后端开发', position = '广东省', level) {
   return request({
     url: '/mirai-position/benefit.json',
     method: 'get',
@@ -60,11 +146,7 @@ export function getBenefit(region = '前端开发', position = '广东省', leve
   })
 }
 
-export function getFinanceStage(
-  region = '前端开发',
-  position = '广东省',
-  level = 1
-) {
+export function getFinanceStage(region = '后端开发', position = '广东省', level) {
   return request({
     url: '/mirai-position/financeStage.json',
     method: 'get',
@@ -76,11 +158,7 @@ export function getFinanceStage(
   })
 }
 
-export function getPosition(
-  region = '前端开发',
-  position = '广东省',
-  level = 1
-) {
+export function getPosition(region = '后端开发', position = '广东省', level) {
   return request({
     url: '/mirai-position/position.json',
     method: 'get',
@@ -91,3 +169,5 @@ export function getPosition(
     }
   })
 }
+
+// ***************************************** Mock End *****************************************

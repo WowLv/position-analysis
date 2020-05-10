@@ -58,7 +58,7 @@ export default {
     handleToggle: debounce(function() {
       this.$store.dispatch('toggleSideBar')
       this.$store.dispatch('getShowingName')
-      this.$store.dispatch('getChangedPage', ['home', 'analysis', 'compared', 'rank', 'date', 'vcl'])
+      this.$store.dispatch('getChangedPage', ['home', 'analysis', 'compared', 'rank', 'rank-language', 'date', 'vcl'])
       const that = this
       setTimeout(() => {
         that.showingName.map(ele => {

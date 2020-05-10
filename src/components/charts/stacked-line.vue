@@ -1,8 +1,8 @@
 <template>
-    <div class="chart-container">
-        <div ref="stackedLine" v-loading="loading" class="stacked-line-main" />
-        <p class="title">{{ title }}</p>
-    </div>
+  <div class="chart-container">
+    <div ref="stackedLine" v-loading="loading" class="stacked-line-main" />
+    <p class="title">{{ title }}</p>
+  </div>
 </template>
 
 <script>
@@ -23,6 +23,10 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    isLoading: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -34,11 +38,17 @@ export default {
     }
   },
   watch: {
+    isLoading: {
+      handler() {
+        //  用于设置子组件为 Loading 状态
+        this.loading = true
+      }
+    },
     stackedLineXdata: {
       handler() {
-        this.xData = this.stackedLineXdata[0]
+        this.xData = this.stackedLineXdata
         this.legend = this.stackedLineLegend
-        // console.log(this.legend)
+        console.log(this.legend)
         this.initstackedLine()
       }
     }
@@ -57,11 +67,32 @@ export default {
         this.loading = false
       }, 300)
 
+      const allData = []
       const _xData = []
-      const yData = []
-      this.xData.forEach(item => {
-        _xData.push(item.date)
-        yData.push(item.value)
+      var yArr = []
+      this.xData.map((item, index) => {
+        // eslint-disable-next-line no-array-constructor
+        const yData = []
+        if (index === 0) {
+          item.map((nItem, index) => {
+            _xData.push(nItem.date)
+          })
+        }
+        // console.log(item)
+        item.map((nItem, index) => {
+          yData.push(nItem.value)
+        })
+
+        yArr = yData
+        allData.push({
+          name: this.legend[index],
+          data: yArr,
+          type: 'line',
+          lineStyle: {
+            width: 4
+          },
+          smooth: true
+        })
       })
 
       const option = {
@@ -76,7 +107,7 @@ export default {
           }
         },
         legend: {
-          data: [this.legend[0]],
+          data: this.legend,
           textStyle: {
             fontSize: 18
           }
@@ -90,7 +121,7 @@ export default {
             interval: 10,
             formatter: function(value) {
               // var a = new Set(value)
-              return value.split('-')[0]
+              return value.replace(/[^0-9]/g, '')
               // console.log(value)
             }
           }
@@ -113,15 +144,7 @@ export default {
             }
           }
         },
-        series: [{
-          name: 'Java',
-          data: yData,
-          type: 'line',
-          lineStyle: {
-            width: 4
-          },
-          smooth: true
-        }]
+        series: allData
       }
 
       this.chartDom.setOption(option)
@@ -142,7 +165,7 @@ export default {
     height: 100%;
   }
   .title {
-    @include title-line($pos-top: 0px, $pos-left: 30px);
+    @include title-line($pos-top: 10px, $pos-left: 30px);
   }
 }
 </style>
