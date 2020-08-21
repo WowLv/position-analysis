@@ -48,7 +48,6 @@ export default {
       handler() {
         this.xData = this.stackedLineXdata
         this.legend = this.stackedLineLegend
-        console.log(this.legend)
         this.initstackedLine()
       }
     }
@@ -63,10 +62,10 @@ export default {
     },
 
     async initstackedLine() {
+      // 300毫秒延迟会使动画看起来更人性化（其实就是看起来得到结果更快）
       setTimeout(() => {
         this.loading = false
       }, 300)
-
       const allData = []
       const _xData = []
       var yArr = []
@@ -78,7 +77,7 @@ export default {
             _xData.push(nItem.date)
           })
         }
-        // console.log(item)
+
         item.map((nItem, index) => {
           yData.push(nItem.value)
         })

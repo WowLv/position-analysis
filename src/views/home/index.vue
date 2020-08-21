@@ -3,30 +3,27 @@
     <div class="main-index">
       <div class="row row-map magical-point">
         <div class="mirai-point-title">全国省份信息</div>
-        <div class="map-left">
+        <div class="map-left box-left">
           <mapTem />
         </div>
-        <div class="map-right">
+        <div class="map-right box-right">
           <mapRightTop class="map-right-top" />
           <edu-pos class="edu-pos" />
         </div>
       </div>
-      <div class="date-trend magical-point">
+      <div class="date-trend magical-point box">
         <div class="mirai-point-title">招聘数据趋势</div>
         <dateTrend />
       </div>
-      <div class="position magical-point">
+      <div class="position magical-point box">
         <div class="mirai-point-title">职位招聘信息</div>
-        <position
-          :position-data="positionData"
-          :is-loading="_isLoading" />
+        <position :position-data="positionData" :is-loading="_isLoading" />
       </div>
       <div class="row magical-point">
         <div class="mirai-point-title">企业规模-薪资福利</div>
-          <companySize class="company-size" />
-          <benefit class="benefit" />
+        <companySize class="company-size box" />
+        <benefit class="benefit box" />
       </div>
-
     </div>
   </div>
 </template>
@@ -40,7 +37,7 @@ import benefit from './benefit'
 import dateTrend from './date-trend'
 import eduPos from './edu-pos'
 import mapRightTop from './map-right-top'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import debounce from '@/utils/debounce.js'
 import { getPosition } from '@/api/position'
 export default {
@@ -62,7 +59,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['pagePoint', 'pagePointIdx', 'changedPage', 'showingName']),
+    ...mapGetters([
+      'pagePoint',
+      'pagePointIdx',
+      'changedPage',
+      'showingName',
+      'positionForm'
+    ]),
     _isLoading() {
       return this.isLoading
     }
@@ -70,23 +73,35 @@ export default {
   watch: {
     pagePointIdx: {
       handler() {
-        // console.log(12112)
         const point = this.getPointLocation()
         const viewContainer = document.querySelector('.view-container')
         viewContainer.scrollTop = point[this.pagePointIdx.idx].location - 10
       },
       deep: true
+    },
+    positionForm: {
+      handler() {
+        // 用于设置子组件为 Loading 状态
+        this.isLoading = !this.isLoading
+        this.getPositionData(this.positionForm)
+      },
+      deep: true
     }
   },
   activated() {
-    this.$store.dispatch('getName', ['home-benefit', 'home-companySize', 'home-dateTrend', 'home-map', 'home-eduPos'])
+    this.getName([
+      'home-benefit',
+      'home-companySize',
+      'home-dateTrend',
+      'home-map',
+      'home-eduPos'
+    ])
     if (this.changedPage.includes('home')) {
-      this.$store.dispatch('getShowingName')
+      this.getShowingName()
       this.showingName.map(ele => {
         ele.chartDom.resize()
-        // console.log(ele.chartDom)
       })
-      this.$store.dispatch('deleteChangePage', 'home')
+      this.deleteChangePage('home')
     }
   },
   mounted() {
@@ -114,18 +129,27 @@ export default {
   deactivated() {
     // 因为在mounted中使用了 selectPointIndex方法，导致选中的 item会一直用用 is-active样式。所以在离开组件时重置样式
     const miraiMenuItem = document.querySelectorAll('.mirai-menu-item')
-    miraiMenuItem.forEach((element) => {
+    miraiMenuItem.forEach(element => {
       element.className = 'el-menu-item mirai-menu-item'
       element.style.backgroundColor = '#FFF'
     })
   },
   updated() {},
   methods: {
-    async getPositionData(form = { regin: '中国', level: 1 }) {
+    ...mapActions([
+      'pagePointTitle',
+      'deleteChangePage',
+      'getShowingName',
+      'getName',
+      'setForwardList'
+    ]),
+    async getPositionData(form = { region: '中国', level: 1, type: 'Month' }) {
       const { data } = await getPosition(form)
-      console.log(data)
       this.positionData = data
-      this.isLoading = false
+      const list = data.other.slice(0, 10).map(item => {
+        return item.name
+      })
+      this.setForwardList(list)
     },
     getPointLocation() {
       /**
@@ -136,10 +160,10 @@ export default {
        */
       const pointListLoc = []
       const pointListTitle = []
-      document.querySelectorAll('.magical-point').forEach((el) => {
+      document.querySelectorAll('.magical-point').forEach(el => {
         pointListLoc.push(el.offsetTop)
       })
-      document.querySelectorAll('.mirai-point-title').forEach((el) => {
+      document.querySelectorAll('.mirai-point-title').forEach(el => {
         pointListTitle.push(el.innerText)
       })
       const point = []
@@ -158,7 +182,7 @@ export default {
       const scrollTop = viewContainer.scrollTop
       const miraiMenuItem = document.querySelectorAll('.mirai-menu-item')
       for (let index = 0; index < point.length; index++) {
-        miraiMenuItem.forEach((element) => {
+        miraiMenuItem.forEach(element => {
           element.className = 'el-menu-item mirai-menu-item'
           element.style.backgroundColor = '#FFF'
         })
@@ -166,7 +190,7 @@ export default {
         if (scrollTop <= location) {
           miraiMenuItem[index].classList.add('is-active')
           miraiMenuItem[index].style.backgroundColor = '#ecf5ff'
-          this.$store.dispatch('pagePointTitle', point[index].title)
+          this.pagePointTitle(point[index].title)
           return
         }
       }
@@ -176,7 +200,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~@/styles/index.scss';
+@import "~@/styles/index.scss";
 .view-container {
   width: auto;
   height: 100%;
@@ -250,6 +274,30 @@ export default {
     }
     .row-map {
       margin-bottom: 15px;
+    }
+  }
+
+  .box {
+    border-radius: 20px;
+    box-shadow: 3px 3px 5px #c2c2d6;
+    &:hover {
+      box-shadow: 6px 10px 10px #c2c2d6;
+    }
+  }
+  .box-left {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    box-shadow: 3px 3px 5px #c2c2d6;
+    &:hover {
+      box-shadow: 6px 10px 10px #c2c2d6;
+    }
+  }
+  .box-right {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 3px 3px 5px #c2c2d6;
+    &:hover {
+      box-shadow: 6px 10px 10px #c2c2d6;
     }
   }
 }

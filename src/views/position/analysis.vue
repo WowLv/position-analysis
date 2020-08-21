@@ -1,12 +1,12 @@
 <template>
   <div class="analysis">
     <position
-      class="position"
+      class="position box"
       :position-data="positionData"
       :is-loading="isLoading"
     />
     <heat-map
-      class="heat-map"
+      class="heat-map box"
       :heat-map-data="heatMapData"
       title="预测薪资"
       :is-loading="isLoading"
@@ -14,14 +14,14 @@
     />
     <div class="second-container">
       <columnBar
-        class="company-size"
+        class="company-size box"
         :column-data="companySizeData"
         title="企业规模"
         :is-loading="isLoading"
         @fromSonComp="getFromBar"
       />
       <columnBarSub
-        class="education"
+        class="education box"
         :column-bar-data="educationData"
         title="学历要求"
         :is-loading="isLoading"
@@ -30,14 +30,14 @@
     </div>
     <div class="third-container">
       <wordCloud
-        class="word-cloud"
+        class="word-cloud box"
         :word-cloud-data="benefitData"
         title="薪资福利"
         :is-loading="isLoading"
         @fromSonComp="getFromWordCloud"
       />
       <pie
-        class="finance-stage"
+        class="finance-stage box"
         :pie-data="financeStage"
         title="企业融资"
         :is-loading="isLoading"
@@ -54,7 +54,7 @@ import columnBar from '@/components/charts/column-bar'
 import columnBarSub from '@/components/charts/column-bar-sub'
 import wordCloud from '@/components/charts/word-cloud'
 import pie from '@/components/charts/pie'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 // import debounce from '@/utils/debounce.js'
 import {
   getPosition,
@@ -113,11 +113,11 @@ export default {
     this.getEducationData()
     this.getBenefitData()
     this.getFinanceStageData().then(() => {
-      this.$store.dispatch('setChartDOM', this.compArr)
+      this.setChartDOM(this.compArr)
     })
   },
   activated() {
-    this.$store.dispatch('getName', [
+    this.getName([
       'analysis-salaryExp',
       'analysis-companySize',
       'analysis-education',
@@ -125,16 +125,22 @@ export default {
       'analysis-financeStage'
     ])
     if (this.changedPage.includes('analysis')) {
-      this.$store.dispatch('getShowingName')
+      this.getShowingName()
 
       this.showingName.map((ele) => {
         ele.chartDom.resize()
       })
-      this.$store.dispatch('deleteChangePage', 'analysis')
+      this.deleteChangePage('analysis')
     }
   },
 
   methods: {
+    ...mapActions([
+      'deleteChangePage',
+      'getShowingName',
+      'setChartDOM',
+      'getName'
+    ]),
     getFromHeat(chartDom) {
       this.compArr.push({
         name: 'analysis-salaryExp',
@@ -204,9 +210,10 @@ export default {
 <style lang="scss" scoped>
 .analysis {
   height: auto;
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   flex-direction: column;
+  padding: 10px;
   .position {
     height: auto;
     background: #fff;
@@ -240,6 +247,13 @@ export default {
       margin-left: 10px;
       height: 400px;
       background: #fff;
+    }
+  }
+  .box {
+    border-radius: 20px;
+    box-shadow: 3px 3px 5px #c2c2d6;
+    &:hover {
+      box-shadow: 6px 10px 10px #c2c2d6;
     }
   }
 }

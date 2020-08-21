@@ -1,13 +1,13 @@
 import request from './request'
 
-export function getProPos(pro, pos) {
+export function getProvInfo(prov) {
   return request({
-    url: '/province/pro-pos.json',
-    method: 'get',
-    data: {
-      pro,
-      pos
-    }
+    url: `/province/${prov}.json`,
+    method: 'get'
+    // params: {
+    //   pro,
+    //   pos
+    // }
   })
 }
 // export function getProPos(pro, pos) {
