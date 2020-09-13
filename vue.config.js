@@ -6,7 +6,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://coderush.top/Hbase_3.0',
+        target: 'http://coderush.top',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

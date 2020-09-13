@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import { getProvInfo } from '@/api/pro-pos'
 import { mapGetters } from 'vuex'
+import { getProvTrend, getStandard, getScatter } from '@/api/province'
 import radar from '@/components/charts/radar'
 import solidPie from '@/components/charts/solid-pie'
 import point from '@/components/charts/point'
@@ -39,7 +39,28 @@ export default {
       'showingName'
     ])
   },
-  mounted() {},
+  created() {
+    getProvTrend()
+      .then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+
+    getStandard()
+      .then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+
+    getScatter()
+      .then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+  },
   activated() {
     this.province = this.$route.query.name
     // 暂时请求mock
