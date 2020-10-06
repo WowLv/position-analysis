@@ -1,14 +1,13 @@
 <template>
-  <div class="view-container">
-    <div class="main-index">
+  <div v-loading="!isShow" class="view-container">
+    <div v-if="isShow" class="main-index">
       <div class="head-box">
         <radar class="radar box-left" title="多维度分析" @fromSonComp="getFromleida"></radar>
-        <solidPie class="solid-pie box-right" title="职业数据分析" @fromSonComp="getFromPie"></solidPie>
+        <solidPie class="solid-pie box-right" title="职业数据分析" :pie-data="pieData" @fromSonComp="getFromPie"></solidPie>
       </div>
       <div class="tail-box">
-        <point class="point box" title="散点数据" @fromSonComp="getFromPoint"></point>
+        <point class="point box" title="散点数据" :point-data="pointData" @fromSonComp="getFromPoint"></point>
       </div>
-
     </div>
   </div>
 </template>
@@ -27,10 +26,12 @@ export default {
   },
   data() {
     return {
-      loading: true,
+      apiNum: 0,
+      isShow: false,
       province: '',
-      data: [],
-      mapChart: {}
+      mapChart: {},
+      pieData: [],
+      pointData: []
     }
   },
   computed: {
@@ -39,27 +40,14 @@ export default {
       'showingName'
     ])
   },
-  created() {
-    getProvTrend()
-      .then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
-
-    getStandard()
-      .then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
-
-    getScatter()
-      .then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
+  watch: {
+    apiNum: {
+      handler(val) {
+        if (val === 3) {
+          this.isShow = true
+        }
+      }
+    }
   },
   activated() {
     this.province = this.$route.query.name
@@ -73,12 +61,29 @@ export default {
       })
       this.$store.dispatch('deleteChangePage', 'home')
     }
+    this._getProvTrend(this.$route.query.name)
+    this._getStandard(this.$route.query.name)
+    this._getScatter(this.$route.query.name)
+  },
+  deactivated() {
+    this.apiNum = 0
+    this.isShow = false
   },
   methods: {
-    async _getProPos(prov) {
-      const res = await getProvInfo(prov)
-      this.data = res.data
-      console.log(this.data)
+    async _getProvTrend(region) {
+      const res = await getProvTrend(region)
+      this.pieData = res.data
+      this.apiNum++
+    },
+    async _getStandard(region) {
+      const res = await getStandard(region)
+      console.log(res.data)
+      this.apiNum++
+    },
+    async _getScatter(region) {
+      const res = await getScatter(region)
+      this.pointData = res.data
+      this.apiNum++
     },
     getFromleida(chartDom) {
       this.$store.dispatch('setChartDOM', [{

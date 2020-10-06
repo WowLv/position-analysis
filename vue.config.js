@@ -6,7 +6,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://coderush.top',
+        target: 'https://coderush.top',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

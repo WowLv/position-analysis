@@ -6,43 +6,7 @@
 </template>
 
 <script>
-var mock = [
-  { date: '7-28', value: 387, type: '后端开发' },
-  { date: '7-29', value: 301, type: '后端开发' },
-  { date: '7-30', value: 400, type: '后端开发' },
-  { date: '7-31', value: 465, type: '后端开发' },
-  { date: '8-1', value: 392, type: '后端开发' },
-  { date: '8-2', value: 388, type: '后端开发' },
-  { date: '8-3', value: 428, type: '后端开发' },
-  { date: '7-28', value: 376, type: '前端开发' },
-  { date: '7-29', value: 351, type: '前端开发' },
-  { date: '7-30', value: 400, type: '前端开发' },
-  { date: '7-31', value: 365, type: '前端开发' },
-  { date: '8-1', value: 392, type: '前端开发' },
-  { date: '8-2', value: 318, type: '前端开发' },
-  { date: '8-3', value: 388, type: '前端开发' },
-  { date: '7-28', value: 287, type: '测试' },
-  { date: '7-29', value: 201, type: '测试' },
-  { date: '7-30', value: 160, type: '测试' },
-  { date: '7-31', value: 165, type: '测试' },
-  { date: '8-1', value: 192, type: '测试' },
-  { date: '8-2', value: 128, type: '测试' },
-  { date: '8-3', value: 178, type: '测试' },
-  { date: '7-28', value: 139, type: '运维' },
-  { date: '7-29', value: 121, type: '运维' },
-  { date: '7-30', value: 140, type: '运维' },
-  { date: '7-31', value: 88, type: '运维' },
-  { date: '8-1', value: 96, type: '运维' },
-  { date: '8-2', value: 101, type: '运维' },
-  { date: '8-3', value: 110, type: '运维' },
-  { date: '7-28', value: 89, type: '数据开发' },
-  { date: '7-29', value: 101, type: '数据开发' },
-  { date: '7-30', value: 70, type: '数据开发' },
-  { date: '7-31', value: 98, type: '数据开发' },
-  { date: '8-1', value: 106, type: '数据开发' },
-  { date: '8-2', value: 99, type: '数据开发' },
-  { date: '8-3', value: 108, type: '数据开发' }
-]
+
 export default {
   props: {
     pieData: {
@@ -77,11 +41,10 @@ export default {
     }
   },
   created() {
-    console.time('test')
     var dateList = ['date']
     var typeList = []
     var valueList = []
-    mock.map((item, index) => {
+    this.pieData.map((item, index) => {
       valueList.push(item.value)
       if (!dateList.includes(item.date)) {
         dateList.push(item.date)
@@ -99,7 +62,6 @@ export default {
       this.mockList.push(currArr)
     }
     console.log(this.mockList)
-    console.timeEnd('test')
   },
   mounted() {
     this.chartDom = this.$echarts.init(this.$refs.solidPie)
@@ -159,12 +121,13 @@ export default {
             radius: '30%',
             center: ['50%', '25%'],
             label: {
-              formatter: '{b}: {@7-28} ({d}%)'
+              formatter: '{b}: {@2020/3/23} ({d}%)'
             },
+            //饼图起始位置
             encode: {
               itemName: 'date',
-              value: '7-28',
-              tooltip: '7-28'
+              value: '2020/3/23',
+              tooltip: '2020/3/23'
             }
           }
         ]
@@ -178,7 +141,7 @@ export default {
             series: {
               id: 'pie',
               label: {
-                formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                formatter: '{b}: ({d}%)'
               },
               encode: {
                 value: dimension,

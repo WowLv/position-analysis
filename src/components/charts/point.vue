@@ -6,11 +6,7 @@
 </template>
 
 <script>
-var mock = [
-  //前后两天
-  [[16700, 25.23, 328, '后端开发', '昨日'], [14300, 17.54, 228, '移动前端开发', '昨日'], [7600, 12.30, 160, '测试', '昨日'], [6800, 15.46, 201, '运维', '昨日'], [10800, 3.61, 47, '数据开发', '昨日'], [18500, 6.77, 88, '人工智能', '昨日'], [14300, 9.23, 120, '前端开发', '昨日'], [15500, 2.00, 26, '企业软件', '昨日'], [10300, 3.23, 42, '硬件开发', '昨日'], [15600, 2.54, 33, '项目管理', '昨日']],
-  [[17500, 29.58, 397, '后端开发', '今日'], [13500, 25.93, 348, '移动前端开发', '今日'], [8250, 10.21, 137, '测试', '今日'], [7300, 8.42, 113, '运维', '今日'], [12100, 4.84, 65, '数据开发', '今日'], [19800, 4.62, 62, '人工智能', '今日'], [13800, 4.10, 55, '前端开发', '今日'], [14400, 2.90, 39, '企业软件', '今日'], [12700, 2.38, 32, '硬件开发', '今日'], [16800, 2.38, 32, '项目管理', '今日']]
-]
+
 export default {
   props: {
     title: {
@@ -20,6 +16,12 @@ export default {
     isLoading: {
       type: Boolean,
       default: true
+    },
+    pointData: {
+      type: Array,
+      default: function() {
+        return []
+      }
     }
   },
   data() {
@@ -46,7 +48,7 @@ export default {
       this.$emit('fromSonComp', this.chartDom)
     },
     initChart() {
-      var data = mock
+      var data = this.pointData
       setTimeout(() => {
         this.loading = false
       }, 300)
@@ -61,9 +63,10 @@ export default {
         legend: {
           top: 10,
           right: 100,
-          data: ['昨日', '今日']
+          data: ['今日', '昨日']
         },
         xAxis: {
+          name: '平均工资',
           splitLine: {
             lineStyle: {
               type: 'dashed'
@@ -72,17 +75,18 @@ export default {
           }
         },
         yAxis: {
+          name: '占比',
           splitLine: {
             show: false
           },
           scale: true
         },
         series: [{
-          name: '昨日',
+          name: '今日',
           data: data[0],
           type: 'scatter',
           symbolSize: function(data) {
-            return data[2] / 4 //1e2 = 100
+            return data[2] * 5 //1e2 = 100
           },
           emphasis: {
             label: {
@@ -106,11 +110,11 @@ export default {
             }])
           }
         }, {
-          name: '今日',
+          name: '昨日',
           data: data[1],
           type: 'scatter',
           symbolSize: function(data) {
-            return data[2] / 4 //1e2 = 100
+            return data[2] * 5 //1e2 = 100
           },
           emphasis: {
             label: {
