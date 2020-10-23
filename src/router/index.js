@@ -89,12 +89,12 @@ const routes = [
       title: '实验室'
     },
     children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('../views/mirai/mirai-table.vue'),
-        meta: { title: 'Table表格' }
-      },
+      // {
+      //   path: 'table',
+      //   name: 'Table',
+      //   component: () => import('../views/mirai/mirai-table.vue'),
+      //   meta: { title: 'Table表格' }
+      // },
       {
         path: 'vcl',
         name: 'Vcl',

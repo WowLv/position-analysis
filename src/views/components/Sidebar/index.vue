@@ -115,11 +115,11 @@ export default {
             icon: 'el-icon-trophy-1'
           },
           children: [
-            {
-              path: '/mirai/table',
-              name: 'Table',
-              meta: { title: 'Table表格' }
-            },
+            // {
+            //   path: '/mirai/table',
+            //   name: 'Table',
+            //   meta: { title: 'Table表格' }
+            // },
             {
               path: '/mirai/vcl',
               name: 'Vcl',

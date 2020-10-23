@@ -2,6 +2,7 @@
   <div v-loading="!isShow" class="view-container">
     <div v-if="isShow" class="main-index">
       <div class="head-box">
+        <!-- 多维度暂无分析 -->
         <radar class="radar box-left" title="多维度分析" @fromSonComp="getFromleida"></radar>
         <solidPie class="solid-pie box-right" title="职业数据分析" :pie-data="pieData" @fromSonComp="getFromPie"></solidPie>
       </div>

@@ -64,12 +64,12 @@ export default {
             }
           },
           indicator: [
-            { name: '薪资', max: 6500 },
-            { name: '学历', max: 16000 },
-            { name: '经验', max: 30000 },
-            { name: '性质', max: 38000 },
-            { name: '融资', max: 52000 },
-            { name: '规模', max: 25000 }
+            { name: '薪资', max: 100 },
+            { name: '学历', max: 100 },
+            { name: '经验', max: 100 },
+            { name: '性质', max: 100 },
+            { name: '融资', max: 100 },
+            { name: '规模', max: 100 }
           ]
         },
         series: [{
@@ -78,11 +78,11 @@ export default {
           // areaStyle: {normal: {}},
           data: [
             {
-              value: [4300, 10000, 28000, 35000, 50000, 19000],
+              value: [73, 75, 90, 90, 80, 70],
               name: '国内水平'
             },
             {
-              value: [5000, 14000, 28000, 31000, 42000, 21000],
+              value: [89, 90, 80, 75, 85, 87],
               name: '当地水平'
             }
           ]

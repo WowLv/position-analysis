@@ -23,7 +23,7 @@
 import { getDateList, getDateBetween } from '@/utils/date'
 // require('./vcl-mock')
 // import mirai from '@/views/components/test-mock/vcl-mock'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { getDateListData } from '@/api/mirai'
 export default {
   data() {
@@ -66,11 +66,14 @@ export default {
      * 3. 如果想 职位名称在 bar里面，value在 bar外面。可给每个 bar叠加一个 bar。一个 bar.label.position：'inside'。一个 bar.label.position: 'right'
      * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
      */
+    if (!this.forwardList.length) {
+      const forwardList = JSON.parse(localStorage.getItem('forwardList'))
+      this.setForwardList(forwardList)
+    }
+    console.log(this.forwardList)
     this.temporary()
   },
   activated() {
-    console.log('vcl upupup')
-    // this.ininChart()
     this.$store.dispatch('getName', ['vcl'])
     if (this.changedPage.includes('vcl')) {
       this.$store.dispatch('getShowingName')
@@ -81,6 +84,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['setForwardList']),
     getFromSon(chartDom) {
       this.$store.dispatch('setChartDOM', [
         {
@@ -88,7 +92,6 @@ export default {
           chartDom: chartDom
         }
       ])
-      // console.log(this.chartDOM)
     },
     getData(dataIndex) {
       // 获取索引的数据，用于更新图标数据
@@ -280,7 +283,7 @@ export default {
     },
     ininChart() {
       // 获取昨天到 2020-02-19相隔多少天
-      const dateNum = getDateBetween('2020-02-19', getDateList())
+      const dateNum = getDateBetween('2020-02-28', getDateList())
       // 获取昨天到 2020-02-19的日期
       const dateList = getDateList(dateNum + 1).reverse()
       this.dateList = dateList
@@ -305,7 +308,7 @@ export default {
     },
     async temporary() {
       // 获取昨天到 2020-03-30相隔多少天
-      const dateNum = getDateBetween('2020-02-19', getDateList())
+      const dateNum = getDateBetween('2020-02-28', getDateList())
       // 获取昨天到 2020-03-30的日期
       const dateList = getDateList(dateNum + 1).reverse()
       const { data } = await getDateListData({ time: dateList, position: this.forwardList })

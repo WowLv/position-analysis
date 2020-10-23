@@ -10,7 +10,10 @@ export function getAllProvince() {
 export function getAllUpdate() {
   return request({
     url: '/AllProvince_DayJob_Servlet',
-    method: 'get'
+    method: 'get',
+    params: {
+      date: '2020-03-29'
+    }
   })
 }
 

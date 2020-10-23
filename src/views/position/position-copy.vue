@@ -8,7 +8,7 @@
       />
       <el-row class="top">
         <el-col
-          v-if="Object.keys(positionDest).length > 0"
+          v-if="Object.keys(positionDest).length"
           :span="8"
           class="box"
         >
@@ -50,7 +50,7 @@
             <p class="city">热门地区</p>
             <!-- <span>TOP1</span> -->
           </div>
-          <div v-if="positionHotRegion.length > 0" class="num">
+          <div v-if="positionHotRegion.length" class="num">
             <div
               v-for="(item, index) in positionHotRegion"
               :key="index"
@@ -71,7 +71,7 @@
       <el-row class="bottom">
         <el-col :span="24" class="box">
           <div class="title">{{ positionDest.title }}技术栈要求</div>
-          <ul v-if="positionSkill.length > 0">
+          <ul v-if="positionSkill && positionSkill.length">
             <el-popover
               v-for="(item, index) in positionSkill"
               :key="item.name"
@@ -96,7 +96,7 @@
         </el-col>
         <el-col :span="24" class="box">
           <div class="title">技术社区</div>
-          <ul v-if="positionCommunity.length > 0">
+          <ul v-if="positionCommunity.length">
             <el-popover
               v-for="item in positionCommunity"
               :key="item.name"
@@ -120,7 +120,7 @@
         </el-col>
         <el-col :span="24" class="box">
           <div class="title">视频学习网站</div>
-          <ul v-if="positionVideo.length > 0">
+          <ul v-if="positionVideo.length">
             <el-popover
               v-for="item in positionVideo"
               :key="item.name"
@@ -145,7 +145,7 @@
       </el-row>
     </div>
     <div class="right-container">
-      <div v-if="otherPosition.length > 0" class="bottom-right">
+      <div v-if="otherPosition.length" class="bottom-right">
         <div
           v-for="(item, idx) in otherPosition"
           :key="idx"

@@ -27,8 +27,9 @@ const positionForm = {
     GET_COMPARED_RIGHT_FORM: (state, change) => {
       state.comparedRightForm[change.key] = change.value
     },
-    GET_FORWARDLIST: (state, list) => {
+    SET_FORWARDLIST: (state, list) => {
       state.forwardList = list
+      localStorage.setItem('forwardList', JSON.stringify(list))
     }
   },
   actions: {
@@ -42,7 +43,7 @@ const positionForm = {
       commit('GET_COMPARED_RIGHT_FORM', change)
     },
     setForwardList({ commit }, list) {
-      commit('GET_FORWARDLIST', list)
+      commit('SET_FORWARDLIST', list)
     }
   },
   getters: {
