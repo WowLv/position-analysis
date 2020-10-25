@@ -36,10 +36,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'changedPage',
-      'showingName'
-    ])
+    ...mapGetters(['changedPage'])
   },
   watch: {
     apiNum: {
@@ -57,9 +54,6 @@ export default {
     this.$store.dispatch('getName', ['prov-radar', 'prov-pie', 'prov-point'])
     if (this.changedPage.includes('prov')) {
       this.$store.dispatch('getShowingName')
-      this.showingName.map((ele) => {
-        ele.chartDom.resize()
-      })
       this.$store.dispatch('deleteChangePage', 'home')
     }
     this._getProvTrend(this.$route.query.name)

@@ -85,7 +85,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['changedPage', 'showingName', 'positionForm'])
+    ...mapGetters(['changedPage', 'positionForm'])
   },
   watch: {
     positionForm: {
@@ -126,10 +126,6 @@ export default {
     ])
     if (this.changedPage.includes('analysis')) {
       this.getShowingName()
-
-      this.showingName.map((ele) => {
-        ele.chartDom.resize()
-      })
       this.deleteChangePage('analysis')
     }
   },

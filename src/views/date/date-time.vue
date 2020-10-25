@@ -5,7 +5,7 @@
 <script>
 import { getDateList, getDateBetween } from '@/utils/date'
 // import mirai from '@/views/components/test-mock/vcl-mock'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { getDateListData } from '@/api/mirai'
 
 export default {
@@ -16,9 +16,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['changedPage', 'showingName', 'forwardList'])
+    ...mapGetters(['changedPage', 'forwardList'])
   },
   mounted() {
+    if (!this.forwardList.length) {
+      const forwardList = JSON.parse(localStorage.getItem('forwardList'))
+      this.setForwardList(forwardList)
+    }
     this._getDataListData().then(() => {
       this.initDateTime()
     })
@@ -27,13 +31,11 @@ export default {
     this.$store.dispatch('getName', ['date-date-time'])
     if (this.changedPage.includes('date')) {
       this.$store.dispatch('getShowingName')
-      this.showingName.map((ele) => {
-        ele.chartDom.resize()
-      })
       this.$store.dispatch('deleteChangePage', 'date')
     }
   },
   methods: {
+    ...mapActions(['setForwardList']),
     async _getDataListData() {
       // 获取昨天到 2020-03-30相隔多少天
       const dateNum = getDateBetween('2020-02-19', getDateList())

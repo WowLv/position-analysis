@@ -37,7 +37,7 @@ export default {
         ele.chartDom.resize()
         // console.log(ele.chartDom)
       })
-    }, 1000)
+    }, 200)
   },
   methods: {}
 }

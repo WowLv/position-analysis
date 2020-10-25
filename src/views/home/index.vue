@@ -63,7 +63,6 @@ export default {
       'pagePoint',
       'pagePointIdx',
       'changedPage',
-      'showingName',
       'positionForm'
     ]),
     _isLoading() {
@@ -98,9 +97,6 @@ export default {
     ])
     if (this.changedPage.includes('home')) {
       this.getShowingName()
-      this.showingName.map(ele => {
-        ele.chartDom.resize()
-      })
       this.deleteChangePage('home')
     }
   },

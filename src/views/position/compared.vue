@@ -140,8 +140,7 @@ export default {
     ...mapGetters([
       'comparedLeftForm',
       'comparedRightForm',
-      'changedPage',
-      'showingName'
+      'changedPage'
     ])
   },
   watch: {
@@ -186,9 +185,6 @@ export default {
     ])
     if (this.changedPage.includes('compared')) {
       this.getShowingName()
-      this.showingName.map((ele) => {
-        ele.chartDom.resize()
-      })
       this.deleteChangePage('compared')
     }
   },

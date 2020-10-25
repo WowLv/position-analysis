@@ -41,7 +41,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['changedPage', 'showingName', 'forwardList'])
+    ...mapGetters(['changedPage', 'forwardList'])
   },
   mounted() {
     /**
@@ -70,16 +70,12 @@ export default {
       const forwardList = JSON.parse(localStorage.getItem('forwardList'))
       this.setForwardList(forwardList)
     }
-    console.log(this.forwardList)
     this.temporary()
   },
   activated() {
     this.$store.dispatch('getName', ['vcl'])
     if (this.changedPage.includes('vcl')) {
       this.$store.dispatch('getShowingName')
-      this.showingName.map((ele) => {
-        ele.chartDom.resize()
-      })
       this.$store.dispatch('deleteChangePage', 'vcl')
     }
   },
